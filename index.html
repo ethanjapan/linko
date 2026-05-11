@@ -1,0 +1,2521 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>林口 Pickleball 球館 · 創業簡報集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Anton&family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans+TC:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+/* =========================================================
+   GLOBAL TOKENS
+   ========================================================= */
+:root {
+  /* Vol.01 — Midnight Premium */
+  --v1-bg: #0A0E1A;
+  --v1-bgsoft: #111827;
+  --v1-card: #1A2236;
+  --v1-border: #2A3349;
+  --v1-text: #F4F6FB;
+  --v1-mute: #8A93A6;
+  --v1-dim: #5C6478;
+  --v1-accent: #D4FF3D;
+  --v1-accent2: #00D4A0;
+  --v1-warn: #FF6B6B;
+  --v1-cool: #4DA8FF;
+
+  /* Vol.02 — Industrial Court */
+  --v2-bg: #0E0F12;
+  --v2-bgsoft: #16181D;
+  --v2-card: #1C1F26;
+  --v2-border: #2A2E38;
+  --v2-text: #F2F2F0;
+  --v2-mute: #9CA0AC;
+  --v2-dim: #5E6370;
+  --v2-accent: #FF5A1F;
+  --v2-accent2: #FFD23F;
+  --v2-cool: #5BC0EB;
+  --v2-good: #2EC4B6;
+  --v2-warn: #E63946;
+
+  /* dynamic palette — set via JS on deck switch */
+  --bg: var(--v1-bg);
+  --bgsoft: var(--v1-bgsoft);
+  --card: var(--v1-card);
+  --border: var(--v1-border);
+  --text: var(--v1-text);
+  --mute: var(--v1-mute);
+  --dim: var(--v1-dim);
+  --accent: var(--v1-accent);
+  --accent2: var(--v1-accent2);
+  --warn: var(--v1-warn);
+  --cool: var(--v1-cool);
+
+  --font-display: 'Archivo Black', 'IBM Plex Sans TC', sans-serif;
+  --font-display-alt: 'Anton', 'Bebas Neue', 'IBM Plex Sans TC', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Menlo', monospace;
+  --font-body: 'IBM Plex Sans TC', system-ui, sans-serif;
+
+  --ease-out: cubic-bezier(.16,1,.3,1);
+  --ease-in-out: cubic-bezier(.65,0,.35,1);
+}
+
+[data-deck="v2"] {
+  --bg: var(--v2-bg);
+  --bgsoft: var(--v2-bgsoft);
+  --card: var(--v2-card);
+  --border: var(--v2-border);
+  --text: var(--v2-text);
+  --mute: var(--v2-mute);
+  --dim: var(--v2-dim);
+  --accent: var(--v2-accent);
+  --accent2: var(--v2-accent2);
+  --warn: var(--v2-warn);
+  --cool: var(--v2-cool);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  transition: background-color .6s var(--ease-in-out), color .6s var(--ease-in-out);
+}
+
+::selection { background: var(--accent); color: var(--bg); }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bgsoft); }
+::-webkit-scrollbar-thumb { background: var(--border); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* =========================================================
+   COVER / HERO
+   ========================================================= */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  padding: 4rem 5vw;
+  display: grid;
+  align-items: center;
+  background: var(--bg);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(212,255,61,.08), transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(0,212,160,.06), transparent 50%);
+  pointer-events: none;
+}
+[data-deck="v2"] .hero::before {
+  background:
+    radial-gradient(circle at 80% 20%, rgba(255,90,31,.10), transparent 50%),
+    radial-gradient(circle at 20% 80%, rgba(255,210,63,.05), transparent 50%);
+}
+
+.hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: .15;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+}
+
+.hero-inner { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; width: 100%; }
+
+.hero-kicker {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  gap: .75rem;
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  letter-spacing: .3em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  line-height: 1;
+  opacity: 0;
+  animation: fade-up .8s var(--ease-out) .2s forwards;
+}
+.hero-kicker::before {
+  content: '';
+  width: 2rem; height: 1px; background: var(--accent);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 9vw, 8rem);
+  line-height: .95;
+  letter-spacing: -.04em;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fade-up .9s var(--ease-out) .35s forwards;
+}
+.hero-title .accent, .hero-title.accent { color: var(--accent); }
+.hero-title .stack { display: block; }
+.hero-title .muted, .hero-title.muted { color: var(--mute); font-family: var(--font-display-alt); font-weight: 400; letter-spacing: 0; }
+
+.hero-sub {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  color: var(--mute);
+  max-width: 50ch;
+  margin-bottom: 4rem;
+  opacity: 0;
+  animation: fade-up .9s var(--ease-out) .5s forwards;
+}
+
+.hero-decks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  max-width: 900px;
+  opacity: 0;
+  animation: fade-up .9s var(--ease-out) .7s forwards;
+}
+
+.deck-card {
+  position: relative;
+  padding: 2rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all .4s var(--ease-out);
+  overflow: hidden;
+}
+.deck-card::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform .4s var(--ease-out);
+}
+.deck-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+.deck-card:hover::before { transform: scaleY(1); }
+.deck-card .deck-num {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  color: var(--dim);
+  letter-spacing: .3em;
+  margin-bottom: .75rem;
+}
+.deck-card .deck-name {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  margin-bottom: .5rem;
+  letter-spacing: -.02em;
+}
+.deck-card .deck-tag {
+  font-family: var(--font-mono);
+  font-size: .85rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+.deck-card .deck-desc {
+  font-size: .9rem;
+  color: var(--mute);
+  line-height: 1.6;
+}
+.deck-card .deck-arrow {
+  position: absolute;
+  right: 1.5rem; bottom: 1.5rem;
+  font-family: var(--font-display-alt);
+  font-size: 1.5rem;
+  color: var(--accent);
+  transition: transform .4s var(--ease-out);
+}
+.deck-card:hover .deck-arrow { transform: translateX(8px); }
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.25rem 5vw;
+  background: rgba(10,14,26,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transform: translateY(-100%);
+  transition: transform .5s var(--ease-out), background-color .6s var(--ease-in-out);
+}
+[data-deck="v2"] .nav { background: rgba(14,15,18,0.7); }
+.nav.visible { transform: translateY(0); }
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: -.02em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+.nav-brand .logo-mark {
+  width: 24px; height: 24px;
+  border: 2px solid var(--accent);
+  position: relative;
+}
+.nav-brand .logo-mark::after {
+  content: ''; position: absolute;
+  inset: 4px; background: var(--accent);
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: .85rem;
+}
+.nav-tabs button {
+  background: none; border: none; color: var(--mute);
+  cursor: pointer; padding: .5rem 0;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  position: relative;
+  transition: color .3s;
+}
+.nav-tabs button:hover { color: var(--text); }
+.nav-tabs button.active { color: var(--accent); }
+.nav-tabs button.active::after {
+  content: ''; position: absolute;
+  left: 0; bottom: -4px; width: 100%; height: 1px;
+  background: var(--accent);
+}
+
+.nav-counter {
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  color: var(--dim);
+  letter-spacing: .15em;
+}
+.nav-counter .current { color: var(--accent); font-weight: 700; }
+
+/* progress bar */
+.progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--accent);
+  z-index: 101;
+  transition: width .3s var(--ease-out), background-color .6s var(--ease-in-out);
+}
+
+/* =========================================================
+   SLIDES
+   ========================================================= */
+.deck { display: none; }
+.deck.active { display: block; }
+
+.slide {
+  min-height: 100vh;
+  padding: 7rem 5vw 4rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+
+.slide-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-header {
+  margin-bottom: 3rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all .8s var(--ease-out);
+}
+.slide.visible .slide-header { opacity: 1; transform: translateY(0); }
+
+.slide-kicker {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  width: fit-content;
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  letter-spacing: .3em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  line-height: 1;
+}
+.slide-kicker::before { content: ''; width: 2rem; height: 1px; background: var(--accent); }
+
+.slide-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3.75rem);
+  line-height: 1.15;
+  letter-spacing: -.03em;
+}
+
+.slide-footer {
+  margin-top: auto;
+  padding-top: 3rem;
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  color: var(--dim);
+  letter-spacing: .25em;
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+}
+
+/* stagger reveal helper */
+.stagger > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+}
+.slide.visible .stagger > * { opacity: 1; transform: translateY(0); }
+.slide.visible .stagger > *:nth-child(1)  { transition-delay: .1s; }
+.slide.visible .stagger > *:nth-child(2)  { transition-delay: .18s; }
+.slide.visible .stagger > *:nth-child(3)  { transition-delay: .26s; }
+.slide.visible .stagger > *:nth-child(4)  { transition-delay: .34s; }
+.slide.visible .stagger > *:nth-child(5)  { transition-delay: .42s; }
+.slide.visible .stagger > *:nth-child(6)  { transition-delay: .50s; }
+.slide.visible .stagger > *:nth-child(7)  { transition-delay: .58s; }
+.slide.visible .stagger > *:nth-child(8)  { transition-delay: .66s; }
+.slide.visible .stagger > *:nth-child(9)  { transition-delay: .74s; }
+
+/* generic card */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  position: relative;
+  transition: border-color .3s var(--ease-out), transform .3s var(--ease-out);
+}
+.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.card-accent-top { border-top: 3px solid var(--accent); }
+.card-accent-left { border-left: 3px solid var(--accent); }
+.card-tag {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  color: var(--accent);
+  letter-spacing: .25em;
+  margin-bottom: .5rem;
+}
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  margin-bottom: .5rem;
+  letter-spacing: -.01em;
+}
+.card-body {
+  font-size: .9rem;
+  color: var(--mute);
+  line-height: 1.55;
+}
+.card .divider {
+  width: 24px; height: 2px;
+  background: var(--accent);
+  margin: .5rem 0 .75rem;
+}
+
+/* stat number large */
+.stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 1;
+  letter-spacing: -.04em;
+  color: var(--accent);
+}
+.stat-unit {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 1rem;
+  color: var(--mute);
+  margin-left: .25rem;
+}
+
+/* grid layouts */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+.grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+@media (min-width: 1024px) { .grid-6 { grid-template-columns: repeat(3, 1fr); } }
+
+/* chart container */
+.chart-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  position: relative;
+  min-height: 380px;
+}
+.chart-wrap canvas { max-height: 380px; }
+.chart-title {
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  color: var(--mute);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+/* progress / scenario bar */
+.bar-row { margin-bottom: 1rem; }
+.bar-row .label {
+  display: flex; justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  color: var(--mute);
+  margin-bottom: .4rem;
+}
+.bar-row .label .val { color: var(--text); font-weight: 700; }
+.bar-track {
+  height: 8px;
+  background: var(--bgsoft);
+  position: relative;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  background: var(--accent);
+  width: 0%;
+  transition: width 1.4s var(--ease-out);
+}
+
+/* big quote */
+.quote-block {
+  background: var(--card);
+  border-left: 4px solid var(--accent);
+  padding: 2rem 2.5rem;
+}
+.quote-block .strikethrough {
+  text-decoration: line-through;
+  color: var(--mute);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  margin-bottom: .5rem;
+  font-style: italic;
+}
+.quote-block .punchline {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--accent);
+  letter-spacing: -.02em;
+}
+.quote-block .note {
+  color: var(--mute);
+  font-size: .95rem;
+  margin-top: .5rem;
+  font-style: italic;
+}
+
+/* hero text (philosophy / verdict) */
+.hero-text {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: .9;
+  letter-spacing: -.04em;
+}
+.hero-text .accent, .hero-text.accent { color: var(--accent); }
+.hero-text .muted, .hero-text.muted { color: var(--mute); font-family: var(--font-display-alt); font-weight: 400; }
+
+/* swot quadrant */
+.swot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.swot-cell {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  position: relative;
+}
+.swot-cell::before {
+  content: ''; position: absolute;
+  left: 0; top: 0; width: 100%; height: 3px;
+}
+.swot-cell.s::before { background: var(--accent); }
+.swot-cell.w::before { background: var(--warn); }
+.swot-cell.o::before { background: var(--accent2); }
+.swot-cell.t::before { background: var(--cool); }
+.swot-cell h3 {
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  letter-spacing: .25em;
+  margin-bottom: 1rem;
+}
+.swot-cell.s h3 { color: var(--accent); }
+.swot-cell.w h3 { color: var(--warn); }
+.swot-cell.o h3 { color: var(--accent2); }
+.swot-cell.t h3 { color: var(--cool); }
+.swot-cell ul { list-style: none; }
+.swot-cell li {
+  padding: .35rem 0;
+  font-size: .9rem;
+  color: var(--mute);
+  border-bottom: 1px dashed var(--border);
+}
+.swot-cell li:last-child { border: none; }
+
+/* phase columns */
+.phase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.phase-col {
+  background: var(--card);
+  border: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.phase-head {
+  padding: 1.25rem;
+  color: var(--bg);
+  font-family: var(--font-display);
+}
+.phase-head .tag {
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  letter-spacing: .25em;
+  display: block;
+  margin-bottom: .25rem;
+}
+.phase-body {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex; flex-direction: column;
+}
+.phase-zh {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  margin-bottom: .35rem;
+}
+.phase-goal {
+  font-style: italic;
+  color: var(--mute);
+  font-size: .85rem;
+  margin-bottom: 1rem;
+}
+.phase-meta {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: .75rem;
+  padding: .75rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+.phase-meta .lab {
+  font-family: var(--font-mono);
+  font-size: .65rem;
+  color: var(--dim);
+  letter-spacing: .15em;
+  margin-bottom: .25rem;
+}
+.phase-meta .val {
+  font-family: var(--font-display);
+  font-size: 1rem;
+}
+.phase-list {
+  list-style: none;
+  margin-bottom: .75rem;
+}
+.phase-list .head {
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  letter-spacing: .15em;
+  margin-bottom: .35rem;
+}
+.phase-list .head.must { color: var(--accent2); }
+.phase-list .head.skip { color: var(--warn); }
+.phase-list li {
+  padding: .15rem 0 .15rem .75rem;
+  font-size: .82rem;
+  position: relative;
+}
+.phase-list li::before {
+  content: '·'; position: absolute; left: 0;
+}
+
+/* funnel */
+.funnel {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  max-width: 100%;
+}
+.funnel-step {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all .6s var(--ease-out);
+  opacity: 0;
+  transform: translateX(-20px);
+}
+.slide.visible .funnel-step { opacity: 1; transform: translateX(0); }
+.slide.visible .funnel-step:nth-child(1) { transition-delay: .2s; }
+.slide.visible .funnel-step:nth-child(2) { transition-delay: .35s; }
+.slide.visible .funnel-step:nth-child(3) { transition-delay: .5s; }
+.slide.visible .funnel-step:nth-child(4) { transition-delay: .65s; }
+.slide.visible .funnel-step:nth-child(5) { transition-delay: .8s; }
+.funnel-step .step-info {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+}
+.funnel-step .step-num {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: .85rem;
+  font-weight: 700;
+}
+.funnel-step .step-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+}
+.funnel-step .step-desc {
+  color: var(--mute);
+  font-size: .85rem;
+  margin-left: 1rem;
+}
+.funnel-step .step-bar {
+  width: 200px;
+  height: 6px;
+  background: var(--bgsoft);
+  overflow: hidden;
+}
+.funnel-step .step-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  width: 0%;
+  transition: width 1.2s var(--ease-out);
+}
+
+/* timeline */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  position: relative;
+  padding: 3rem 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 5%; right: 5%;
+  height: 1px;
+  background: var(--border);
+}
+.timeline-node {
+  position: relative;
+  text-align: center;
+}
+.timeline-node .dot {
+  width: 16px; height: 16px;
+  background: var(--accent);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  transition: transform .6s var(--ease-out);
+}
+.slide.visible .timeline-node .dot { transform: scale(1.2); }
+.timeline-node .when {
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  color: var(--accent);
+  letter-spacing: .15em;
+  margin-bottom: .5rem;
+}
+.timeline-node .what {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  margin-top: 1rem;
+  letter-spacing: -.01em;
+}
+.timeline-node .why {
+  font-size: .8rem;
+  color: var(--mute);
+  margin-top: .5rem;
+  line-height: 1.4;
+}
+.timeline-node:nth-child(even) { transform: translateY(-30px); }
+
+/* visual swatches */
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+.mood-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+}
+.mood-visual {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mood-info {
+  padding: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+.mood-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin-bottom: .25rem;
+}
+.mood-desc {
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  color: var(--mute);
+}
+
+/* mood visual styles */
+.mood-concrete { background: #2a2c33; }
+.mood-concrete::before, .mood-concrete::after {
+  content: ''; position: absolute;
+  left: 15%; right: 15%; height: 4px;
+  background: var(--v2-accent2);
+}
+.mood-concrete::before { top: 30%; }
+.mood-concrete::after  { top: 60%; }
+
+.mood-steel { background: #1a1c22; position: relative; }
+.mood-steel::before {
+  content: ''; position: absolute;
+  left: 0; right: 0; top: 30%; height: 18px;
+  background: #3a3d45;
+}
+.mood-steel::after {
+  content: ''; position: absolute;
+  left: 0; right: 0; top: 60%; height: 6px;
+  background: #3a3d45;
+}
+
+.mood-ember {
+  background: var(--v2-accent);
+  color: var(--v2-bg);
+  flex-direction: column;
+  text-align: left;
+  padding: 1.5rem;
+}
+.mood-ember .lab { font-family: var(--font-display); font-size: 2rem; }
+.mood-ember .hex { font-family: var(--font-mono); font-size: .9rem; margin-top: .25rem; }
+
+.mood-glow { background: #0f1218; position: relative; }
+.mood-glow .string {
+  position: absolute;
+  left: 10%; right: 10%; top: 30%;
+  height: 1px;
+  background: var(--dim);
+}
+.mood-glow .bulb {
+  position: absolute;
+  width: 14px; height: 14px;
+  background: var(--v2-accent2);
+  border-radius: 50%;
+  top: calc(30% - 7px);
+  box-shadow: 0 0 12px rgba(255,210,63,.7);
+  animation: pulse-bulb 2.5s ease-in-out infinite;
+}
+.mood-glow .bulb:nth-child(2) { left: 18%; animation-delay: 0s; }
+.mood-glow .bulb:nth-child(3) { left: 33%; animation-delay: .3s; }
+.mood-glow .bulb:nth-child(4) { left: 48%; animation-delay: .6s; }
+.mood-glow .bulb:nth-child(5) { left: 63%; animation-delay: .9s; }
+.mood-glow .bulb:nth-child(6) { left: 78%; animation-delay: 1.2s; }
+@keyframes pulse-bulb {
+  0%, 100% { box-shadow: 0 0 12px rgba(255,210,63,.4); }
+  50% { box-shadow: 0 0 24px rgba(255,210,63,.9); }
+}
+
+/* court diagram (SVG) */
+.court-diagram {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 2rem;
+}
+.court-diagram svg { width: 100%; height: auto; }
+
+/* space layout diagram */
+.layout-svg-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+}
+.layout-svg-wrap svg { width: 100%; height: auto; display: block; }
+
+/* zone breakdown card */
+.zone-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.zone-card .pct {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  letter-spacing: -.04em;
+  flex-shrink: 0;
+  width: 4rem;
+}
+.zone-card .info .name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+.zone-card .info .desc {
+  font-size: .8rem;
+  color: var(--mute);
+}
+
+/* verdict cards */
+.verdict-bar {
+  background: var(--card);
+  border-left: 4px solid var(--accent);
+  padding: 2rem 2.5rem;
+  margin-bottom: 2rem;
+}
+.verdict-bar .lab {
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  letter-spacing: .3em;
+  color: var(--accent);
+  margin-bottom: .75rem;
+}
+.verdict-bar .punch {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  letter-spacing: -.02em;
+}
+.verdict-bar .note {
+  color: var(--mute);
+  font-style: italic;
+  margin-top: .5rem;
+  font-size: .9rem;
+}
+
+.verdict-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 1.25rem; }
+.verdict-cell {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
+  padding: 1.25rem 1.5rem;
+}
+.verdict-cell.warn { border-top-color: var(--warn); }
+.verdict-cell.good { border-top-color: var(--accent2); }
+.verdict-cell .vlab {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .25em;
+  color: var(--accent);
+  margin-bottom: .4rem;
+}
+.verdict-cell.warn .vlab { color: var(--warn); }
+.verdict-cell.good .vlab { color: var(--accent2); }
+.verdict-cell .vtit {
+  font-family: var(--font-display);
+  font-size: .9rem;
+  color: var(--mute);
+  margin-bottom: .25rem;
+}
+.verdict-cell .vhead {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--accent);
+  margin-bottom: .75rem;
+  line-height: 1.15;
+}
+.verdict-cell.warn .vhead { color: var(--warn); }
+.verdict-cell.good .vhead { color: var(--accent2); }
+.verdict-cell .vbody {
+  font-size: .85rem;
+  color: var(--mute);
+  line-height: 1.5;
+}
+
+/* nav bottom dots */
+.dots-nav {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+.dots-nav button {
+  width: 8px; height: 8px;
+  background: var(--border);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all .3s;
+  position: relative;
+}
+.dots-nav button:hover { background: var(--mute); transform: scale(1.5); }
+.dots-nav button.active { background: var(--accent); width: 24px; }
+.dots-nav button[data-cover="true"] {
+  width: 16px; height: 16px;
+  background: transparent;
+  border: 1px solid var(--mute);
+}
+.dots-nav button[data-cover="true"].active { background: var(--accent); border-color: var(--accent); }
+
+/* keyboard hint */
+.key-hint {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 2rem;
+  z-index: 90;
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  color: var(--dim);
+  letter-spacing: .2em;
+  pointer-events: none;
+  opacity: 0;
+  animation: fade-up .8s var(--ease-out) 2s forwards;
+}
+.key-hint kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  margin: 0 2px;
+  font-size: .7rem;
+}
+
+/* corner mark — industrial */
+.corner-mark {
+  width: 16px; height: 16px;
+  border-top: 1.5px solid var(--accent);
+  border-left: 1.5px solid var(--accent);
+  display: inline-block;
+}
+
+/* animations */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* mobile */
+@media (max-width: 900px) {
+  .grid-2, .grid-3, .grid-4, .grid-6, .verdict-grid, .phase-grid, .mood-grid, .swot { grid-template-columns: 1fr !important; }
+  .timeline { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem 0; }
+  .timeline::before { display: none; }
+  .timeline-node { text-align: left; padding-left: 2rem; border-left: 1px solid var(--border); }
+  .timeline-node:nth-child(even) { transform: none; }
+  .timeline-node .dot { position: absolute; left: -8px; margin: 0; top: 0; }
+  .funnel-step { flex-direction: column; align-items: flex-start; gap: .75rem; }
+  .funnel-step .step-bar { width: 100%; }
+  .slide { padding: 5rem 1.5rem 2rem; }
+  .hero { padding: 4rem 1.5rem; }
+  .nav { padding: 1rem 1.5rem; }
+  .nav-tabs { gap: .75rem; }
+  .nav-tabs button { font-size: .7rem; }
+  .dots-nav { display: none; }
+  .key-hint { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- progress bar -->
+<div class="progress" id="progress"></div>
+
+<!-- nav -->
+<nav class="nav" id="nav">
+  <div class="nav-brand" onclick="goCover()">
+    <div class="logo-mark"></div>
+    <span>LINKOU · PICKLEBALL</span>
+  </div>
+  <div class="nav-tabs">
+    <button onclick="goCover()">COVER</button>
+    <button onclick="switchDeck('v1', 0)" id="tab-v1">VOL.01 · INVEST</button>
+    <button onclick="switchDeck('v2', 0)" id="tab-v2">VOL.02 · BUILD</button>
+  </div>
+  <div class="nav-counter">
+    <span class="current" id="cur-slide">00</span> / <span id="total-slides">22</span>
+  </div>
+</nav>
+
+<!-- dots nav -->
+<div class="dots-nav" id="dots-nav"></div>
+
+<!-- COVER -->
+<section class="hero" id="cover">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-kicker">CREATIVE STRATEGY DOCUMENTS · 2026</div>
+    <h1 class="hero-title">
+      <span class="stack muted">林口 · 鐵皮倉庫</span>
+      <span class="stack accent">Pickleball House.</span>
+    </h1>
+    <p class="hero-sub">
+      把 180 坪鐵皮倉庫變成林口運動潮流社交據點。<br>
+      兩份策略簡報 — 一份決定該不該做，一份決定怎麼做。
+    </p>
+    <div class="hero-decks">
+      <div class="deck-card" onclick="switchDeck('v1', 0)">
+        <div class="deck-num">VOL · 01</div>
+        <div class="deck-name">INVESTMENT</div>
+        <div class="deck-tag">創業投資分析</div>
+        <div class="deck-desc">VC 級別商業分析：市場、財務、ROI、風險、SWOT、90 天 MVP 驗證。22 頁。</div>
+        <div class="deck-arrow">→</div>
+      </div>
+      <div class="deck-card" onclick="switchDeck('v2', 0)">
+        <div class="deck-num">VOL · 02</div>
+        <div class="deck-name">BUILD STRATEGY</div>
+        <div class="deck-tag">裝修品牌策略</div>
+        <div class="deck-desc">空間設計 + 三階段裝修 + 預算 + 品牌世界觀。Build to operate, not to impress. 22 頁。</div>
+        <div class="deck-arrow">→</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================
+     VOLUME 01 — INVESTMENT ANALYSIS
+     =================================================== -->
+<div class="deck" id="deck-v1" data-deck="v1">
+
+  <!-- V1 · S1: Executive Summary -->
+  <section class="slide" data-deck="v1" id="v1-s1">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">01 · EXECUTIVE SUMMARY</div>
+        <h2 class="slide-title">3 行讀懂這個案子</h2>
+      </div>
+      <div class="grid-3 stagger">
+        <div class="card card-accent-top">
+          <div class="card-tag">機會</div>
+          <div class="stat-num">5×</div>
+          <div class="card-title" style="margin-top:.5rem;">全球 Pickleball</div>
+          <div class="card-body">過去 5 年參與人數翻 5 倍，全美增速最快的運動。台灣處於起點。</div>
+        </div>
+        <div class="card card-accent-top">
+          <div class="card-tag">場地</div>
+          <div class="stat-num">180<span class="stat-unit">坪</span></div>
+          <div class="card-title" style="margin-top:.5rem;">7 米挑高 / 林口</div>
+          <div class="card-body">月租 NT$ 144K · 條件少見 · 含戶外空地與既有衛浴。</div>
+        </div>
+        <div class="card card-accent-top">
+          <div class="card-tag">風險</div>
+          <div class="stat-num" style="color:var(--warn)">¬</div>
+          <div class="card-title" style="margin-top:.5rem;">無社群基礎</div>
+          <div class="card-body">兩位合夥人副業經營，無全職、無社群、無預訂客。這是核心風險。</div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>INVESTMENT MEMO · LINKOU PICKLEBALL</span>
+        <span>01 / 12</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- V1 · S2: Global Trend Chart -->
+  <section class="slide" data-deck="v1" id="v1-s2">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">02 · MARKET MOMENTUM</div>
+        <h2 class="slide-title">全球趨勢 — 不是想像出來的</h2>
+      </div>
+      <div class="grid-2 stagger" style="grid-template-columns: 1.6fr 1fr;">
+        <div class="chart-wrap">
+          <div class="chart-title">USA Pickleball Players (Millions)</div>
+          <canvas id="chart-trend"></canvas>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="card">
+            <div class="card-tag">USA</div>
+            <div class="card-title">36.5M+ 玩家</div>
+            <div class="card-body">2024 SFIA 調查。已是美國成長最快的運動，超越網球。</div>
+          </div>
+          <div class="card">
+            <div class="card-tag">ASIA</div>
+            <div class="card-title">早期擴散</div>
+            <div class="card-body">日韓 2024 起明顯加速。台灣處於導入期，先進者紅利大。</div>
+          </div>
+          <div class="card">
+            <div class="card-tag">WHY</div>
+            <div class="card-title">學習曲線短</div>
+            <div class="card-body">15 分鐘上手 + 社交門檻低 + 適合 25–55 歲主力消費族群。</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>VOL.01 · INVESTMENT</span><span>02 / 12</span></div>
+    </div>
+  </section>
+
+  <!-- V1 · S3: Linkou Market -->
+  <section class="slide" data-deck="v1" id="v1-s3">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">03 · LOCATION THESIS</div>
+        <h2 class="slide-title">為什麼是林口</h2>
+      </div>
+      <div class="grid-4 stagger">
+        <div class="card">
+          <div class="card-tag">人口結構</div>
+          <div class="stat-num" style="font-size:3rem;">25–45</div>
+          <div class="card-body" style="margin-top:.75rem;">重劃區年輕白領家庭聚集 · 中高消費力</div>
+        </div>
+        <div class="card">
+          <div class="card-tag">運動空間</div>
+          <div class="stat-num" style="font-size:3rem;">0</div>
+          <div class="card-body" style="margin-top:.75rem;">林口無專業 Pickleball 場館 · 競爭真空</div>
+        </div>
+        <div class="card">
+          <div class="card-tag">交通</div>
+          <div class="stat-num" style="font-size:3rem;">15<span class="stat-unit">min</span></div>
+          <div class="card-body" style="margin-top:.75rem;">台北市區車程 · 機捷直達 · 跨區可達</div>
+        </div>
+        <div class="card">
+          <div class="card-tag">缺口</div>
+          <div class="stat-num" style="font-size:3rem;">!</div>
+          <div class="card-body" style="margin-top:.75rem;">但需求未驗證 · 不能假設『一定有人來』</div>
+        </div>
+      </div>
+      <div class="quote-block" style="margin-top:2.5rem;">
+        <div class="punchline">在競爭真空裡開店不代表會贏。先驗證社群，再開門。</div>
+      </div>
+      <div class="slide-footer"><span>VOL.01 · INVESTMENT</span><span>03 / 12</span></div>
+    </div>
+  </section>
+
+  <!-- V1 · S4: Business Model -->
+  <section class="slide" data-deck="v1" id="v1-s4">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">04 · BUSINESS MODEL</div>
+        <h2 class="slide-title">球場不是產品 — 社群才是</h2>
+      </div>
+      <div class="grid-2 stagger" style="grid-template-columns:1fr 1fr;">
+        <div>
+          <div class="quote-block" style="margin-bottom:1.5rem;">
+            <div class="strikethrough">把球場租出去就是生意</div>
+            <div class="punchline">真正的產品是『讓他們再來』的理由</div>
+            <div class="note">會員、課程、賽事、品牌 — 都從社群衍生。</div>
+          </div>
+          <div class="card">
+            <div class="card-title">三層商業模式</div>
+            <div class="divider"></div>
+            <ul style="list-style:none; color:var(--mute); font-size:.95rem; line-height:1.8;">
+              <li>① <strong style="color:var(--text)">場地租賃</strong> — 入門款，現金流主力，但毛利薄。</li>
+              <li>② <strong style="color:var(--text)">會員制 + 課程</strong> — 提高客單價、降低空場率。</li>
+              <li>③ <strong style="color:var(--text)">品牌與賽事</strong> — 長期資產，可複製性最高。</li>
+            </ul>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-title">營收結構（成熟期 · 目標分佈）</div>
+          <canvas id="chart-revenue"></canvas>
+        </div>
+      </div>
+      <div class="slide-footer"><span>VOL.01 · INVESTMENT</span><span>04 / 12</span></div>
+    </div>
+  </section>
+
+  <!-- V1 · S5: CAPEX -->
+  <section class="slide" data-deck="v1" id="v1-s5">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">05 · CAPEX BREAKDOWN</div>
+        <h2 class="slide-title">初期投入結構</h2>
+      </div>
+      <div class="grid-2 stagger" style="grid-template-columns: 1.4fr 1fr;">
+        <div class="chart-wrap">
+          <div class="chart-title">分項投入（單位：萬 NTD）</div>
+          <canvas id="chart-capex"></canvas>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="card card-accent-left">
+            <div class="card-tag">合計</div>
+            <div class="stat-num">~310<span class="stat-unit">萬</span></div>
+            <div class="card-body" style="margin-top:.5rem;">含 6 個月營運準備金 30 萬</div>
+          </div>
+          <div class="card">
+            <div class="card-tag">合夥資本</div>
+            <div class="card-title">2 × 80–90 萬 = 160–180 萬</div>
+            <div class="card-body">兩位合夥人共投入。</div>
+          </div>
+          <div class="card" style="border-left:3px solid var(--warn)">
+            <div class="card-tag" style="color:var(--warn)">資金缺口</div>
+            <div class="card-title" style="color:var(--warn)">~130–150 萬</div>
+            <div class="card-body">必須在 Phase 1 啟動前補上，否則無 runway。</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>VOL.01 · INVESTMENT</span><span>05 / 12</span></div>
+    </div>
+  </section>
+
+  <!-- V1 · S6: ROI Sensitivity -->
+  <section class="slide" data-deck="v1" id="v1-s6">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">06 · ROI SENSITIVITY</div>
+        <h2 class="slide-title">利用率敏感度</h2>
+      </div>
+      <div class="grid-2 stagger" style="grid-template-columns: 1.5fr 1fr;">
+        <div class="chart-wrap">
+          <div class="chart-title">月淨收益 vs 利用率（單位：萬 NTD）</div>
+          <canvas id="chart-roi"></canvas>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div class="card">
+            <div class="card-tag">損益平衡</div>
+            <div class="card-title" style="color:var(--accent);">利用率 ≈ 48%</div>
+            <div class="card-body">三面場 × 每日有效時段 × 平均單價。</div>
+          </div>
+          <div class="card" style="border-left:3px solid var(--warn);">
+            <div class="card-tag" style="color:var(--warn);">悲觀情境</div>
+            <div class="card-title">30% · 月虧 6 萬</div>
+            <div class="card-body">8 個月內現金燒完。</div>
+          </div>
+          <div class="card" style="border-left:3px solid var(--accent2);">
+            <div class="card-tag" style="color:var(--accent2);">樂觀情境</div>
+            <div class="card-title">70% · 月賺 13 萬</div>
+            <div class="card-body">18 個月可回本。</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>VOL.01 · INVESTMENT</span><span>06 / 12</span></div>
+    </div>
+  </section>
+
+  <!-- V1 · S7: SWOT -->
+  <section class="slide" data-deck="v1" id="v1-s7">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">07 · SWOT</div>
+        <h2 class="slide-title">四象限體檢</h2>
+      </div>
+      <div class="swot stagger">
+        <div class="swot-cell s">
+          <h3>S · STRENGTHS</h3>
+          <ul>
+            <li>180 坪 + 7m 挑高的稀缺條件</li>
+            <li>戶外空地可做社交延伸</li>
+            <li>合夥人結構單純（兩人）</li>
+            <li>低租金 + 既有衛浴</li>
+          </ul>
+        </div>
+        <div class="swot-cell w">
+          <h3>W · WEAKNESSES</h3>
+          <ul>
+            <li>無社群、無預訂客</li>
+            <li>無全職員工 → 管理隱性成本</li>
+            <li>副業心態 → 投入時間有限</li>
+            <li>無 Pickleball 教練背景</li>
+          </ul>
+        </div>
+        <div class="swot-cell o">
+          <h3>O · OPPORTUNITIES</h3>
+          <ul>
+            <li>台灣 Pickleball 處於導入期</li>
+            <li>林口無同類場館（競爭真空）</li>
+            <li>可成為地方品牌與賽事據點</li>
+            <li>跨運動潮流社群（網球、羽球轉移）</li>
+          </ul>
+        </div>
+        <div class="swot-cell t">
+          <h3>T · THREATS</h3>
+          <ul>
+            <li>夏季電費爆量</li>
+            <li>白天空場率高（工業區）</li>
+            <li>新進競爭者可快速複製</li>
+            <li>Pickleball 是否真的留下未知</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide-footer"><span>VOL.01 · INVESTMENT</span><span>07 / 12</span></div>
+    </div>
+  </section>
+
+  <!-- V1 · S8: Risk Map -->
+  <section class="slide" data-deck="v1" id="v1-s8">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">08 · RISK MAP</div>
+        <h2 class="slide-title">風險矩陣 — 影響 × 機率</h2>
+      </div>
+      <div class="chart-wrap stagger" style="min-height:500px;">
+        <div class="chart-title">X 軸:發生機率 · Y 軸:財務影響</div>
+        <canvas id="chart-risk" style="max-height:480px;"></canvas>
+      </div>
+      <div class="slide-footer"><span>VOL.01 · INVESTMENT</span><span>08 / 12</span></div>
+    </div>
+  </section>
+
+  <!-- V1 · S9: 90-Day MVP -->
+  <section class="slide" data-deck="v1" id="v1-s9">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">09 · MVP PLAYBOOK</div>
+        <h2 class="slide-title">90 天驗證劇本 — 別急著簽約</h2>
+      </div>
+      <div class="timeline stagger">
+        <div class="timeline-node">
+          <div class="when">DAY 0–30</div>
+          <div class="dot"></div>
+          <div class="what">建立社群</div>
+          <div class="why">IG / Threads / LINE 群 · 100 人為門檻 · 內容測試</div>
+        </div>
+        <div class="timeline-node">
+          <div class="when">DAY 30–60</div>
+          <div class="dot"></div>
+          <div class="what">借場辦活動</div>
+          <div class="why">借公園 / 學校 / 既有場地辦 6 場 · 蒐集 NPS</div>
+        </div>
+        <div class="timeline-node">
+          <div class="when">DAY 60–75</div>
+          <div class="dot"></div>
+          <div class="what">付費驗證</div>
+          <div class="why">預售月卡 / 體驗券 · 若收到 20 張即綠燈</div>
+        </div>
+        <div class="timeline-node">
+          <div class="when">DAY 75–90</div>
+          <div class="dot"></div>
+          <div class="what">資料盤點</div>
+          <div class="why">回購率、轉介率、客單價 · 三項達標才繼續</div>
+        </div>
+        <div class="timeline-node">
+          <div class="when">DAY 90+</div>
+          <div class="dot"></div>
+          <div class="what">綠燈才簽約</div>
+          <div class="why">三項達標 → Phase 1 啟動 · 否則 pivot 或退場</div>
+        </div>
+      </div>
+      <div class="quote-block" style="margin-top:2rem;">
+        <div class="punchline">物件不會消失。社群驗證失敗的事業不會回來。</div>
+      </div>
+      <div class="slide-footer"><span>VOL.01 · INVESTMENT</span><span>09 / 12</span></div>
+    </div>
+  </section>
+
+  <!-- V1 · S10: User Funnel -->
+  <section class="slide" data-deck="v1" id="v1-s10">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">10 · USER FUNNEL</div>
+        <h2 class="slide-title">會員轉換漏斗</h2>
+      </div>
+      <div class="funnel">
+        <div class="funnel-step">
+          <div class="step-info">
+            <span class="step-num">01</span>
+            <span class="step-name">FOLLOWER</span>
+            <span class="step-desc">IG / Threads 追蹤者</span>
+          </div>
+          <div class="step-bar"><div class="step-bar-fill" data-pct="100"></div></div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-info">
+            <span class="step-num">02</span>
+            <span class="step-name">TRIER</span>
+            <span class="step-desc">體驗券 / 免費活動</span>
+          </div>
+          <div class="step-bar"><div class="step-bar-fill" data-pct="35"></div></div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-info">
+            <span class="step-num">03</span>
+            <span class="step-name">PAID USER</span>
+            <span class="step-desc">第一次付費租場</span>
+          </div>
+          <div class="step-bar"><div class="step-bar-fill" data-pct="18"></div></div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-info">
+            <span class="step-num">04</span>
+            <span class="step-name">RETAINER</span>
+            <span class="step-desc">第二次回流</span>
+          </div>
+          <div class="step-bar"><div class="step-bar-fill" data-pct="9"></div></div>
+        </div>
+        <div class="funnel-step">
+          <div class="step-info">
+            <span class="step-num">05</span>
+            <span class="step-name">MEMBER</span>
+            <span class="step-desc">月卡 / 季卡</span>
+          </div>
+          <div class="step-bar"><div class="step-bar-fill" data-pct="4"></div></div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:2rem;">
+        <div class="card-title">關鍵指標</div>
+        <div class="card-body">關鍵在第 3 → 第 4 步的『回流率』。這是預測這個事業能不能撐過半年的單一最重要指標。</div>
+      </div>
+      <div class="slide-footer"><span>VOL.01 · INVESTMENT</span><span>10 / 12</span></div>
+    </div>
+  </section>
+
+  <!-- V1 · S11: Three Scenarios -->
+  <section class="slide" data-deck="v1" id="v1-s11">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">11 · SCENARIOS</div>
+        <h2 class="slide-title">三種未來</h2>
+      </div>
+      <div class="grid-3 stagger">
+        <div class="card" style="border-top:3px solid var(--warn);">
+          <div class="card-tag" style="color:var(--warn);">情境 A · 失敗</div>
+          <div class="card-title" style="font-size:1.4rem;">沒社群 · 一次砸大錢</div>
+          <div class="divider" style="background:var(--warn);"></div>
+          <div class="card-body" style="margin-bottom:1rem;">假設『場地很好就會有人來』。直接簽 5 年約 + 350 萬一次裝修。</div>
+          <div style="font-family:var(--font-mono); font-size:.8rem; color:var(--mute); line-height:1.8;">
+            · 6 個月後現金告罄<br>
+            · 退場曝險 250 萬+<br>
+            · 失敗機率：高
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--accent);">
+          <div class="card-tag">情境 B · 中性</div>
+          <div class="card-title" style="font-size:1.4rem;">小社群 · 階段裝修</div>
+          <div class="divider"></div>
+          <div class="card-body" style="margin-bottom:1rem;">先 90 天 MVP 驗證 + 三階段裝修。社群 200 人時開幕。</div>
+          <div style="font-family:var(--font-mono); font-size:.8rem; color:var(--mute); line-height:1.8;">
+            · 月利用率 45–55%<br>
+            · 24 個月可回本<br>
+            · 失敗機率：中
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--accent2);">
+          <div class="card-tag" style="color:var(--accent2);">情境 C · 成功</div>
+          <div class="card-title" style="font-size:1.4rem;">社群 + 賽事 + 品牌</div>
+          <div class="divider" style="background:var(--accent2);"></div>
+          <div class="card-body" style="margin-bottom:1rem;">先建立 500 人社群 + 賽事承辦能力。Phase 2 啟動品牌商品。</div>
+          <div style="font-family:var(--font-mono); font-size:.8rem; color:var(--mute); line-height:1.8;">
+            · 月利用率 65–75%<br>
+            · 18 個月可回本<br>
+            · 可考慮第二場館
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>VOL.01 · INVESTMENT</span><span>11 / 12</span></div>
+    </div>
+  </section>
+
+  <!-- V1 · S12: Verdict -->
+  <section class="slide" data-deck="v1" id="v1-s12">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">12 · CONSULTANT VERDICT</div>
+        <h2 class="slide-title">創業顧問真實評價</h2>
+      </div>
+      <div class="verdict-bar">
+        <div class="lab">THE INVESTMENT CALL</div>
+        <div class="punch">『先別簽約。先做 90 天社群驗證。』</div>
+        <div class="note">物件可以再找。把 350 萬一次燒在沒驗證的需求上，回不來。</div>
+      </div>
+      <div class="verdict-grid">
+        <div class="verdict-cell">
+          <div class="vlab">REAL OPPORTUNITY</div>
+          <div class="vtit">真正機會</div>
+          <div class="vhead">在地壟斷<br>的時間窗</div>
+          <div class="vbody">林口無同類場館，3–5 年內可建立地方品牌資產。</div>
+        </div>
+        <div class="verdict-cell warn">
+          <div class="vlab">BIGGEST RISK</div>
+          <div class="vtit">最大風險</div>
+          <div class="vhead">假需求<br>+ 燒乾現金</div>
+          <div class="vbody">用『場地好』取代『需求驗證』，是最常見的死亡路徑。</div>
+        </div>
+        <div class="verdict-cell warn">
+          <div class="vlab">FAILURE MODE</div>
+          <div class="vtit">最容易失敗</div>
+          <div class="vhead">副業心態<br>+ 大投入</div>
+          <div class="vbody">無全職、無社群、卻一次砸 350 萬。這是最危險的組合。</div>
+        </div>
+      </div>
+      <div class="grid-2" style="gap:1.25rem;">
+        <div class="card card-accent-left" style="border-left-color:var(--accent2);">
+          <div class="card-tag" style="color:var(--accent2);">LAUNCH STRATEGY</div>
+          <div class="card-title">最合理的啟動策略</div>
+          <div class="card-body">90 天 MVP 社群驗證 → 達標再簽約 → Phase 1 開幕 → 6 個月觀察 → 視結果決定 Phase 2/3。</div>
+        </div>
+        <div class="card card-accent-left">
+          <div class="card-tag">FINAL WORD</div>
+          <div class="card-title">給合夥人的一句話</div>
+          <div class="card-body" style="color:var(--accent); font-style:italic;">『先建社群，再建球場。』</div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>VOL.01 · INVESTMENT · END</span><span>12 / 12</span></div>
+    </div>
+  </section>
+
+</div><!-- /deck-v1 -->
+
+
+<!-- ===================================================
+     VOLUME 02 — BUILD STRATEGY
+     =================================================== -->
+<div class="deck" id="deck-v2" data-deck="v2">
+
+  <!-- V2 · S1: Snapshot -->
+  <section class="slide" data-deck="v2" id="v2-s1">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">01 · SITE SNAPSHOT</div>
+        <h2 class="slide-title">場地一頁讀完</h2>
+      </div>
+      <div class="grid-3 stagger">
+        <div class="card card-accent-top">
+          <div class="card-tag">01</div>
+          <div class="stat-num">180<span class="stat-unit">坪</span></div>
+          <div class="card-title" style="margin-top:.5rem;">總面積</div>
+          <div class="card-body">1F 約 120 坪 + 戶外 60 坪</div>
+        </div>
+        <div class="card card-accent-top">
+          <div class="card-tag">02</div>
+          <div class="stat-num">7<span class="stat-unit">m</span></div>
+          <div class="card-title" style="margin-top:.5rem;">樓高挑高</div>
+          <div class="card-body">大型挑空 · 適合運動空間</div>
+        </div>
+        <div class="card card-accent-top">
+          <div class="card-tag">03</div>
+          <div class="stat-num">少</div>
+          <div class="card-title" style="margin-top:.5rem;">結構柱</div>
+          <div class="card-body">規劃彈性高 · 動線好處理</div>
+        </div>
+        <div class="card card-accent-top">
+          <div class="card-tag">04</div>
+          <div class="stat-num">✓</div>
+          <div class="card-title" style="margin-top:.5rem;">戶外空地</div>
+          <div class="card-body">60 坪 · 社交與停車雙用</div>
+        </div>
+        <div class="card card-accent-top">
+          <div class="card-tag">05</div>
+          <div class="stat-num">✓</div>
+          <div class="card-title" style="margin-top:.5rem;">既有廁所</div>
+          <div class="card-body">省下衛浴改裝重大成本</div>
+        </div>
+        <div class="card card-accent-top">
+          <div class="card-tag">06</div>
+          <div class="stat-num">RC</div>
+          <div class="card-title" style="margin-top:.5rem;">現況地坪</div>
+          <div class="card-body">水泥裸地 · 須整平與面層</div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>VOL.02 · BUILD</span><span>01 / 10</span></div>
+    </div>
+  </section>
+
+  <!-- V2 · S2: Visual DNA -->
+  <section class="slide" data-deck="v2" id="v2-s2">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">02 · VISUAL DNA</div>
+        <h2 class="slide-title">視覺基因 — 美式倉庫球館感</h2>
+      </div>
+      <div class="mood-grid stagger">
+        <div class="mood-card">
+          <div class="mood-visual mood-concrete"></div>
+          <div class="mood-info">
+            <div class="mood-name">CONCRETE + COURT</div>
+            <div class="mood-desc">水泥 × 標線色</div>
+          </div>
+        </div>
+        <div class="mood-card">
+          <div class="mood-visual mood-steel"></div>
+          <div class="mood-info">
+            <div class="mood-name">EXPOSED STEEL</div>
+            <div class="mood-desc">外露鋼構 × 黑色管線</div>
+          </div>
+        </div>
+        <div class="mood-card">
+          <div class="mood-visual mood-ember">
+            <div class="lab">EMBER</div>
+            <div class="hex">/ FF5A1F</div>
+          </div>
+          <div class="mood-info">
+            <div class="mood-name">SIGNAL ORANGE</div>
+            <div class="mood-desc">品牌主色 · 工業安全橘</div>
+          </div>
+        </div>
+        <div class="mood-card">
+          <div class="mood-visual mood-glow">
+            <div class="string"></div>
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+            <div class="bulb"></div>
+          </div>
+          <div class="mood-info">
+            <div class="mood-name">OUTDOOR GLOW</div>
+            <div class="mood-desc">夜間燈串 × 戶外暖光</div>
+          </div>
+        </div>
+      </div>
+      <div class="quote-block" style="margin-top:2rem;">
+        <div class="punchline">不是工廠改造。是美式 Pickleball House。</div>
+        <div class="note">參考：The Picklr · CityPickle · Bounce Pickleball.</div>
+      </div>
+      <div class="slide-footer"><span>VOL.02 · BUILD</span><span>02 / 10</span></div>
+    </div>
+  </section>
+
+  <!-- V2 · S3: Risks -->
+  <section class="slide" data-deck="v2" id="v2-s3">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">03 · RENO RISKS</div>
+        <h2 class="slide-title">最大的裝修風險 — 鐵皮的真相</h2>
+      </div>
+      <div class="grid-4 stagger">
+        <div class="card" style="border-left:3px solid var(--warn);">
+          <div class="card-tag" style="color:var(--warn);">01</div>
+          <div class="card-title">鐵皮 = 烤箱</div>
+          <div class="divider" style="background:var(--warn);"></div>
+          <div class="card-body">夏季屋頂可達 60°C+，運動量大時室溫往往比戶外更熱。</div>
+        </div>
+        <div class="card" style="border-left:3px solid var(--warn);">
+          <div class="card-tag" style="color:var(--warn);">02</div>
+          <div class="card-title">冷氣噸數爆量</div>
+          <div class="divider" style="background:var(--warn);"></div>
+          <div class="card-body">120 坪 + 7m + 鐵皮 ≈ 一般建築 2–3 倍冷房需求。</div>
+        </div>
+        <div class="card card-accent-left">
+          <div class="card-tag">03</div>
+          <div class="card-title">照明高且燒錢</div>
+          <div class="divider"></div>
+          <div class="card-body">7m 高度需專業燈具與吊掛，照度標準 500–750 lux。</div>
+        </div>
+        <div class="card card-accent-left">
+          <div class="card-tag">04</div>
+          <div class="card-title">回音問題</div>
+          <div class="divider"></div>
+          <div class="card-body">鐵皮 + 高挑 + 硬地 = 嚴重殘響。球聲與人聲互蓋。</div>
+        </div>
+        <div class="card" style="border-left:3px solid var(--cool);">
+          <div class="card-tag" style="color:var(--cool);">05</div>
+          <div class="card-title">潮濕與結露</div>
+          <div class="divider" style="background:var(--cool);"></div>
+          <div class="card-body">冷氣 + 鐵皮溫差 + 運動水氣 → 結露 → 地板易滑。</div>
+        </div>
+        <div class="card" style="border-left:3px solid var(--warn);">
+          <div class="card-tag" style="color:var(--warn);">06</div>
+          <div class="card-title">電費黑洞</div>
+          <div class="divider" style="background:var(--warn);"></div>
+          <div class="card-body">全冷氣 + 高瓦數燈光 + 高峰時段 → 月電費 5–8 萬。</div>
+        </div>
+        <div class="card card-accent-left">
+          <div class="card-tag">07</div>
+          <div class="card-title">空場率</div>
+          <div class="divider"></div>
+          <div class="card-body">工業區白天客流少 · 週間下午幾乎空轉。</div>
+        </div>
+        <div class="card" style="border-left:3px solid var(--cool);">
+          <div class="card-tag" style="color:var(--cool);">08</div>
+          <div class="card-title">副業管理</div>
+          <div class="divider" style="background:var(--cool);"></div>
+          <div class="card-body">無全職員工 → 預約、清潔、客訴、教練排班。</div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>VOL.02 · BUILD</span><span>03 / 10</span></div>
+    </div>
+  </section>
+
+  <!-- V2 · S4: Philosophy Hero -->
+  <section class="slide" data-deck="v2" id="v2-s4">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">04 · PHILOSOPHY</div>
+        <h2 class="slide-title">裝修哲學</h2>
+      </div>
+      <div style="flex:1; display:flex; align-items:center; padding:2rem 0;">
+        <div>
+          <div style="font-family:var(--font-mono); font-size:.9rem; color:var(--mute); letter-spacing:.3em; margin-bottom:1rem;">BUILD TO</div>
+          <div class="hero-text" style="margin-bottom:1.5rem;">OPERATE.</div>
+          <div style="font-family:var(--font-mono); font-size:.9rem; color:var(--mute); letter-spacing:.3em; margin-bottom:1rem;">NOT TO</div>
+          <div class="hero-text accent">IMPRESS.</div>
+          <div style="margin-top:3rem; max-width:600px; color:var(--mute); font-size:1.1rem; font-style:italic;">
+            先做能營運，再做漂亮。所有的裝修決策都要服務於這句話。
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>VOL.02 · BUILD</span><span>04 / 10</span></div>
+    </div>
+  </section>
+
+  <!-- V2 · S5: Three Phases -->
+  <section class="slide" data-deck="v2" id="v2-s5">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">05 · STRATEGY</div>
+        <h2 class="slide-title">三階段裝修策略</h2>
+      </div>
+      <div class="phase-grid stagger">
+        <div class="phase-col">
+          <div class="phase-head" style="background:var(--v2-accent);">
+            <span class="tag">PHASE 1</span>
+            OPERABLE
+          </div>
+          <div class="phase-body">
+            <div class="phase-zh">能營運</div>
+            <div class="phase-goal">用最低成本驗證需求</div>
+            <div class="phase-meta">
+              <div><div class="lab">BUDGET</div><div class="val" style="color:var(--v2-accent);">80–110 萬</div></div>
+              <div><div class="lab">TIMELINE</div><div class="val">1–1.5 月</div></div>
+            </div>
+            <div class="phase-list">
+              <div class="head must">✓ MUST</div>
+              <ul style="list-style:none;">
+                <li>地坪整平 + 運動底材</li>
+                <li>基礎 LED 照明</li>
+                <li>HVLS 大風扇 ×2</li>
+                <li>球場畫線 + 球網</li>
+                <li>簡易休息區</li>
+              </ul>
+            </div>
+            <div class="phase-list">
+              <div class="head skip">✕ SKIP</div>
+              <ul style="list-style:none;">
+                <li>精緻品牌牆</li>
+                <li>全冷氣</li>
+                <li>高級淋浴</li>
+                <li>客製櫃台</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="phase-col">
+          <div class="phase-head" style="background:var(--v2-accent2);">
+            <span class="tag">PHASE 2</span>
+            REFINE
+          </div>
+          <div class="phase-body">
+            <div class="phase-zh">升級</div>
+            <div class="phase-goal">確認需求後改善體驗</div>
+            <div class="phase-meta">
+              <div><div class="lab">BUDGET</div><div class="val" style="color:var(--v2-accent2);">60–90 萬</div></div>
+              <div><div class="lab">TIMELINE</div><div class="val">驗證後</div></div>
+            </div>
+            <div class="phase-list">
+              <div class="head must">✓ MUST</div>
+              <ul style="list-style:none;">
+                <li>局部冷氣（觀眾席 + 社交）</li>
+                <li>音響系統</li>
+                <li>正式品牌牆 + LOGO</li>
+                <li>PU 面層升級</li>
+                <li>戶外燈串 + 長桌</li>
+              </ul>
+            </div>
+            <div class="phase-list">
+              <div class="head skip">✕ SKIP</div>
+              <ul style="list-style:none;">
+                <li>全場冷氣</li>
+                <li>高級教練室</li>
+                <li>員工辦公室</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="phase-col">
+          <div class="phase-head" style="background:var(--v2-good);">
+            <span class="tag">PHASE 3</span>
+            BRAND
+          </div>
+          <div class="phase-body">
+            <div class="phase-zh">旗艦化</div>
+            <div class="phase-goal">成為運動社群據點</div>
+            <div class="phase-meta">
+              <div><div class="lab">BUDGET</div><div class="val" style="color:var(--v2-good);">80–150 萬</div></div>
+              <div><div class="lab">TIMELINE</div><div class="val">獲利後</div></div>
+            </div>
+            <div class="phase-list">
+              <div class="head must">✓ MUST</div>
+              <ul style="list-style:none;">
+                <li>全場冷氣升級</li>
+                <li>賽事級燈光</li>
+                <li>品牌零售區</li>
+                <li>餐飲合作點</li>
+                <li>夜間照明設計</li>
+              </ul>
+            </div>
+            <div class="phase-list">
+              <div class="head skip">✕ SKIP</div>
+              <ul style="list-style:none;">
+                <li>過早擴點</li>
+                <li>重資產投入</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>VOL.02 · BUILD</span><span>05 / 10</span></div>
+    </div>
+  </section>
+
+  <!-- V2 · S6: Space Layout -->
+  <section class="slide" data-deck="v2" id="v2-s6">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">06 · LAYOUT</div>
+        <h2 class="slide-title">180 坪配置藍圖 · 70 / 15 / 5 / 10</h2>
+      </div>
+      <div class="grid-2 stagger" style="grid-template-columns: 1.4fr 1fr;">
+        <div class="layout-svg-wrap">
+          <svg viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer container -->
+            <rect x="10" y="10" width="580" height="400" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+
+            <!-- N marker -->
+            <text x="20" y="28" font-family="IBM Plex Mono" font-size="11" fill="var(--dim)" letter-spacing="2">↑ N</text>
+            <text x="500" y="28" font-family="IBM Plex Mono" font-size="9" fill="var(--dim)" letter-spacing="2">1F LAYOUT</text>
+
+            <!-- Main court zone (70%) — top -->
+            <rect x="20" y="45" width="560" height="220" fill="rgba(255,210,63,0.05)" stroke="var(--accent2)" stroke-width="1"/>
+
+            <!-- 3 courts -->
+            <g class="court-anim" stroke="var(--accent2)" stroke-width="0.75" fill="rgba(14,15,18,0.5)">
+              <rect x="35" y="60" width="170" height="190"/>
+              <line x1="35" y1="155" x2="205" y2="155" stroke-dasharray="4,4" stroke="var(--accent)"/>
+              <rect x="215" y="60" width="170" height="190"/>
+              <line x1="215" y1="155" x2="385" y2="155" stroke-dasharray="4,4" stroke="var(--accent)"/>
+              <rect x="395" y="60" width="170" height="190"/>
+              <line x1="395" y1="155" x2="565" y2="155" stroke-dasharray="4,4" stroke="var(--accent)"/>
+            </g>
+
+            <text x="120" y="80" font-family="IBM Plex Mono" font-size="11" fill="var(--accent2)" text-anchor="middle">C1</text>
+            <text x="300" y="80" font-family="IBM Plex Mono" font-size="11" fill="var(--accent2)" text-anchor="middle">C2</text>
+            <text x="480" y="80" font-family="IBM Plex Mono" font-size="11" fill="var(--accent2)" text-anchor="middle">C3</text>
+
+            <text x="35" y="285" font-family="IBM Plex Mono" font-size="9" fill="var(--accent)" letter-spacing="2">MAIN COURTS · 70%</text>
+
+            <!-- Social zone (15%) -->
+            <rect x="20" y="295" width="360" height="80" fill="rgba(255,90,31,0.08)" stroke="var(--accent)" stroke-width="1"/>
+            <text x="32" y="315" font-family="IBM Plex Mono" font-size="9" fill="var(--accent)" letter-spacing="2">SOCIAL LOUNGE</text>
+            <text x="32" y="345" font-family="Archivo Black" font-size="22" fill="var(--accent)">15%</text>
+            <text x="32" y="365" font-family="IBM Plex Mono" font-size="9" fill="var(--mute)">沙發 · 長桌 · 飲料</text>
+
+            <!-- Brand entry (5%) -->
+            <rect x="390" y="295" width="190" height="80" fill="rgba(91,192,235,0.08)" stroke="var(--cool)" stroke-width="1"/>
+            <text x="402" y="315" font-family="IBM Plex Mono" font-size="9" fill="var(--cool)" letter-spacing="2">BRAND ENTRY</text>
+            <text x="402" y="345" font-family="Archivo Black" font-size="22" fill="var(--cool)">5%</text>
+            <text x="402" y="365" font-family="IBM Plex Mono" font-size="9" fill="var(--mute)">LOGO · IG打卡</text>
+
+            <!-- Outdoor (10%) -->
+            <rect x="20" y="385" width="560" height="20" fill="rgba(46,196,182,0.1)" stroke="var(--accent2)" stroke-width="1"/>
+            <text x="32" y="400" font-family="IBM Plex Mono" font-size="9" fill="var(--accent2)" letter-spacing="2">OUTDOOR ZONE · 10%  ·  桌椅 · 燈串 · 餐車</text>
+          </svg>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+          <div class="zone-card" style="border-left-color:var(--accent2);">
+            <div class="pct" style="color:var(--accent2);">70<span style="font-size:1rem;">%</span></div>
+            <div class="info">
+              <div class="name">主球場區</div>
+              <div class="desc">3 面標準場 + 緩衝走道</div>
+            </div>
+          </div>
+          <div class="zone-card">
+            <div class="pct">15<span style="font-size:1rem;">%</span></div>
+            <div class="info">
+              <div class="name">社交休息區</div>
+              <div class="desc">真正的產品藏在這</div>
+            </div>
+          </div>
+          <div class="zone-card" style="border-left-color:var(--cool);">
+            <div class="pct" style="color:var(--cool);">5<span style="font-size:1rem;">%</span></div>
+            <div class="info">
+              <div class="name">入口品牌區</div>
+              <div class="desc">IG 露出最高的牆面</div>
+            </div>
+          </div>
+          <div class="zone-card" style="border-left-color:var(--good);">
+            <div class="pct" style="color:var(--good);">10<span style="font-size:1rem;">%</span></div>
+            <div class="info">
+              <div class="name">戶外社交區</div>
+              <div class="desc">把『打完就走』變『留下來』</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>VOL.02 · BUILD</span><span>06 / 10</span></div>
+    </div>
+  </section>
+
+  <!-- V2 · S7: Cost Breakdown -->
+  <section class="slide" data-deck="v2" id="v2-s7">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">07 · COSTING</div>
+        <h2 class="slide-title">Phase 1 裝修成本明細</h2>
+      </div>
+      <div class="grid-2 stagger" style="grid-template-columns: 1.6fr 1fr;">
+        <div class="chart-wrap">
+          <div class="chart-title">成本結構（單位:萬 NTD）· 低估 vs 高估</div>
+          <canvas id="chart-cost"></canvas>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+          <div class="card card-accent-left">
+            <div class="card-tag">PHASE 1 TOTAL</div>
+            <div class="stat-num">86–188<span class="stat-unit">萬</span></div>
+            <div class="card-body" style="margin-top:.5rem;">含結構吊掛、消防審查等隱性費用</div>
+          </div>
+          <div class="card">
+            <div class="card-title">最燒錢 TOP 3</div>
+            <div class="divider"></div>
+            <ul style="list-style:none; line-height:2; color:var(--mute);">
+              <li>· PU / 地坪底材 <span style="color:var(--accent); font-family:var(--font-mono); float:right;">25 萬</span></li>
+              <li>· LED 照明 <span style="color:var(--accent); font-family:var(--font-mono); float:right;">22 萬</span></li>
+              <li>· 屋頂隔熱 <span style="color:var(--accent); font-family:var(--font-mono); float:right;">18 萬</span></li>
+            </ul>
+          </div>
+          <div class="card" style="border-left:3px solid var(--warn);">
+            <div class="card-tag" style="color:var(--warn);">! 實際容易超支</div>
+            <div class="card-title" style="color:var(--warn);">+15–25%</div>
+            <div class="card-body">結構吊掛、消防、電力擴充往往超出預估。</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>VOL.02 · BUILD</span><span>07 / 10</span></div>
+    </div>
+  </section>
+
+  <!-- V2 · S8: Electricity Risk -->
+  <section class="slide" data-deck="v2" id="v2-s8">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">08 · ELECTRICITY</div>
+        <h2 class="slide-title">真正可能殺死球館的不是租金</h2>
+      </div>
+      <div class="quote-block stagger" style="margin-bottom:2rem;">
+        <div class="punchline">租金是已知。電費是黑洞。</div>
+        <div class="note" style="color:var(--warn);">120 坪 × 7m + 鐵皮 + 全冷氣 = 夏季月電費 5–8 萬。</div>
+      </div>
+      <div class="grid-2" style="grid-template-columns: 1.4fr 1fr;">
+        <div class="chart-wrap">
+          <div class="chart-title">月電費推估（萬 NTD · 夏季旺月）</div>
+          <canvas id="chart-elec"></canvas>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:.75rem;">
+          <div class="card card-accent-left" style="border-left-color:var(--good); padding:1rem 1.25rem;">
+            <div class="card-title" style="font-size:1rem;">夜間優先策略</div>
+            <div class="card-body" style="font-size:.85rem;">18:00–22:00 是真正營收時段</div>
+          </div>
+          <div class="card card-accent-left" style="border-left-color:var(--good); padding:1rem 1.25rem;">
+            <div class="card-title" style="font-size:1rem;">HVLS 大風扇</div>
+            <div class="card-body" style="font-size:.85rem;">7m 樓高標準配備 · 1 支冷感 200 m²</div>
+          </div>
+          <div class="card card-accent-left" style="border-left-color:var(--good); padding:1rem 1.25rem;">
+            <div class="card-title" style="font-size:1rem;">屋頂隔熱噴塗</div>
+            <div class="card-body" style="font-size:.85rem;">降溫 5–8°C · 一次投資永久有效</div>
+          </div>
+          <div class="card card-accent-left" style="border-left-color:var(--good); padding:1rem 1.25rem;">
+            <div class="card-title" style="font-size:1rem;">分區/分時冷氣</div>
+            <div class="card-body" style="font-size:.85rem;">只冷靜止區 · 球場用風扇就夠</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>VOL.02 · BUILD</span><span>08 / 10</span></div>
+    </div>
+  </section>
+
+  <!-- V2 · S9: Brand Vision -->
+  <section class="slide" data-deck="v2" id="v2-s9">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">09 · BRAND VISION</div>
+        <h2 class="slide-title">如果做成功 · 它會變成什麼</h2>
+      </div>
+      <div style="margin-bottom:3rem;">
+        <div class="hero-text muted" style="font-size:clamp(2rem,5vw,4rem); margin-bottom:.5rem;">不是球場。是林口的</div>
+        <div class="hero-text accent" style="font-size:clamp(2.5rem,6vw,5rem);">運動潮流社交據點。</div>
+      </div>
+      <div class="grid-4 stagger">
+        <div class="card card-accent-top">
+          <div class="card-tag">DAY</div>
+          <div class="card-title">運動空間</div>
+          <div class="divider"></div>
+          <div class="card-body">週末家庭、課程、固定團、社區運動入口。</div>
+        </div>
+        <div class="card card-accent-top">
+          <div class="card-tag">NIGHT</div>
+          <div class="card-title">社交空間</div>
+          <div class="divider"></div>
+          <div class="card-body">下班後夜燈、餐車、長桌、續攤。</div>
+        </div>
+        <div class="card card-accent-top">
+          <div class="card-tag">EVENT</div>
+          <div class="card-title">活動空間</div>
+          <div class="divider"></div>
+          <div class="card-body">賽事、市集、體驗活動、品牌快閃。</div>
+        </div>
+        <div class="card card-accent-top">
+          <div class="card-tag">BRAND</div>
+          <div class="card-title">品牌資產</div>
+          <div class="divider"></div>
+          <div class="card-body">T-shirt、周邊、IG 內容、可複製模板。</div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>VOL.02 · BUILD</span><span>09 / 10</span></div>
+    </div>
+  </section>
+
+  <!-- V2 · S10: Verdict -->
+  <section class="slide" data-deck="v2" id="v2-s10">
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-kicker">10 · CONSULTANT VERDICT</div>
+        <h2 class="slide-title">顧問結論</h2>
+      </div>
+      <div class="verdict-bar">
+        <div class="lab">THE BUILD CALL</div>
+        <div class="punch">分階段、低成本、可逆。先 Phase 1，再談 Phase 2。</div>
+        <div class="note">不要把全部資金一次燒在 Day 0。物件不會消失，現金燒掉就回不來。</div>
+      </div>
+      <div class="verdict-grid">
+        <div class="verdict-cell">
+          <div class="vlab">REAL OPPORTUNITY</div>
+          <div class="vtit">真正機會</div>
+          <div class="vhead">美式倉庫球館<br>的本土版</div>
+          <div class="vbody">林口有條件做出 The Picklr 級的視覺與品牌，是 5 年內可建立的在地壟斷資產。</div>
+        </div>
+        <div class="verdict-cell warn">
+          <div class="vlab">BIGGEST RISK</div>
+          <div class="vtit">最大風險</div>
+          <div class="vhead">電費 + 空場率<br>雙殺</div>
+          <div class="vbody">鐵皮 + 7m + 全冷氣 = 月燒 8 萬電費 + 白天空場率 80%，6 個月內現金告罄。</div>
+        </div>
+        <div class="verdict-cell warn">
+          <div class="vlab">FAILURE MODE</div>
+          <div class="vtit">最容易失敗</div>
+          <div class="vhead">一次砸完<br>夢幻球館</div>
+          <div class="vbody">把 350 萬一次燒完做完美裝修，沒有 runway 也沒有社群驗證。</div>
+        </div>
+      </div>
+      <div class="grid-2" style="gap:1.25rem;">
+        <div class="card card-accent-left" style="border-left-color:var(--good);">
+          <div class="card-tag" style="color:var(--good);">LAUNCH STRATEGY</div>
+          <div class="card-title">最合理的啟動策略</div>
+          <div class="card-body">MVP 社群驗證 → Phase 1 開幕 → 半年觀察 → 視結果決定 Phase 2/3。</div>
+        </div>
+        <div class="card card-accent-left">
+          <div class="card-tag">FINAL WORD</div>
+          <div class="card-title">給合夥人的一句話</div>
+          <div class="card-body" style="color:var(--accent); font-style:italic;">『可以做，但不能燒。先讓它能活，再讓它漂亮。』</div>
+        </div>
+      </div>
+      <div class="slide-footer"><span>VOL.02 · BUILD · END</span><span>10 / 10</span></div>
+    </div>
+  </section>
+
+</div><!-- /deck-v2 -->
+
+
+<!-- keyboard hint -->
+<div class="key-hint">
+  <kbd>↑</kbd> <kbd>↓</kbd> NAVIGATE  ·  <kbd>1</kbd> <kbd>2</kbd> SWITCH DECK  ·  <kbd>ESC</kbd> COVER
+</div>
+
+
+<script>
+/* =========================================================
+   DECK SWITCHING + NAVIGATION
+   ========================================================= */
+let currentDeck = null;
+let currentSlideIdx = 0;
+let chartsRendered = { v1: false, v2: false };
+
+const decks = {
+  v1: { id: 'deck-v1', total: 12, label: 'INVEST' },
+  v2: { id: 'deck-v2', total: 10, label: 'BUILD' }
+};
+
+function goCover() {
+  currentDeck = null;
+  document.querySelectorAll('.deck').forEach(d => d.classList.remove('active'));
+  document.body.removeAttribute('data-deck');
+  document.getElementById('cover').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('nav').classList.remove('visible');
+  document.getElementById('tab-v1').classList.remove('active');
+  document.getElementById('tab-v2').classList.remove('active');
+  rebuildDots();
+}
+
+function switchDeck(deckKey, slideIdx) {
+  currentDeck = deckKey;
+  currentSlideIdx = slideIdx;
+
+  // hide all decks, show target
+  document.querySelectorAll('.deck').forEach(d => d.classList.remove('active'));
+  document.getElementById(decks[deckKey].id).classList.add('active');
+  document.body.setAttribute('data-deck', deckKey);
+
+  // update nav
+  document.getElementById('nav').classList.add('visible');
+  document.getElementById('tab-v1').classList.toggle('active', deckKey === 'v1');
+  document.getElementById('tab-v2').classList.toggle('active', deckKey === 'v2');
+  document.getElementById('total-slides').textContent = String(decks[deckKey].total).padStart(2, '0');
+
+  // render charts if first time
+  if (!chartsRendered[deckKey]) {
+    if (deckKey === 'v1') renderV1Charts();
+    if (deckKey === 'v2') renderV2Charts();
+    chartsRendered[deckKey] = true;
+  }
+
+  // scroll to specific slide
+  setTimeout(() => {
+    const slide = document.getElementById(`${deckKey}-s${slideIdx + 1}`);
+    if (slide) {
+      slide.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    rebuildDots();
+  }, 80);
+}
+
+/* =========================================================
+   INTERSECTION OBSERVER — SLIDE REVEAL + COUNTER UPDATE
+   ========================================================= */
+const slideObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      // update current-slide counter
+      const id = e.target.id; // e.g. v1-s3
+      const m = id.match(/^(v\d)-s(\d+)$/);
+      if (m) {
+        const [, deck, num] = m;
+        document.getElementById('cur-slide').textContent = String(num).padStart(2, '0');
+        currentSlideIdx = parseInt(num) - 1;
+        currentDeck = deck;
+        // highlight dot
+        document.querySelectorAll('.dots-nav button').forEach(b => b.classList.remove('active'));
+        const dot = document.querySelector(`.dots-nav button[data-idx="${num - 1}"]`);
+        if (dot) dot.classList.add('active');
+        // animate bars on funnel/etc
+        e.target.querySelectorAll('.step-bar-fill, .bar-fill').forEach(b => {
+          const pct = b.dataset.pct || '0';
+          b.style.width = `${pct}%`;
+        });
+      }
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.slide').forEach(s => slideObserver.observe(s));
+
+/* progress bar */
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  document.getElementById('progress').style.width = `${pct}%`;
+}, { passive: true });
+
+/* =========================================================
+   DOTS NAV
+   ========================================================= */
+function rebuildDots() {
+  const dotsEl = document.getElementById('dots-nav');
+  dotsEl.innerHTML = '';
+  if (!currentDeck) {
+    // show only cover dot
+    const b = document.createElement('button');
+    b.dataset.cover = 'true';
+    b.classList.add('active');
+    b.onclick = goCover;
+    dotsEl.appendChild(b);
+    return;
+  }
+  const total = decks[currentDeck].total;
+  for (let i = 0; i < total; i++) {
+    const b = document.createElement('button');
+    b.dataset.idx = i;
+    if (i === currentSlideIdx) b.classList.add('active');
+    b.onclick = () => {
+      const s = document.getElementById(`${currentDeck}-s${i + 1}`);
+      if (s) s.scrollIntoView({ behavior: 'smooth' });
+    };
+    dotsEl.appendChild(b);
+  }
+}
+
+/* =========================================================
+   KEYBOARD NAV
+   ========================================================= */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') { goCover(); return; }
+  if (e.key === '1') { switchDeck('v1', 0); return; }
+  if (e.key === '2') { switchDeck('v2', 0); return; }
+  if (!currentDeck) return;
+  if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+    e.preventDefault();
+    const next = Math.min(currentSlideIdx + 1, decks[currentDeck].total - 1);
+    const s = document.getElementById(`${currentDeck}-s${next + 1}`);
+    if (s) s.scrollIntoView({ behavior: 'smooth' });
+  } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+    e.preventDefault();
+    const prev = Math.max(currentSlideIdx - 1, 0);
+    const s = document.getElementById(`${currentDeck}-s${prev + 1}`);
+    if (s) s.scrollIntoView({ behavior: 'smooth' });
+  }
+});
+
+/* =========================================================
+   CHART.JS — V1 (Investment, Midnight palette)
+   ========================================================= */
+const V1 = {
+  bg: '#0A0E1A', card: '#1A2236', border: '#2A3349',
+  text: '#F4F6FB', mute: '#8A93A6', dim: '#5C6478',
+  accent: '#D4FF3D', accent2: '#00D4A0', warn: '#FF6B6B', cool: '#4DA8FF'
+};
+const V2 = {
+  bg: '#0E0F12', card: '#1C1F26', border: '#2A2E38',
+  text: '#F2F2F0', mute: '#9CA0AC', dim: '#5E6370',
+  accent: '#FF5A1F', accent2: '#FFD23F', cool: '#5BC0EB', good: '#2EC4B6', warn: '#E63946'
+};
+
+const baseChartOpts = (P) => ({
+  responsive: true,
+  maintainAspectRatio: false,
+  animation: { duration: 1600, easing: 'easeOutQuart' },
+  plugins: {
+    legend: {
+      labels: {
+        color: P.text,
+        font: { family: 'IBM Plex Mono', size: 11 }
+      }
+    },
+    tooltip: {
+      backgroundColor: P.card,
+      titleColor: P.text,
+      bodyColor: P.mute,
+      borderColor: P.border,
+      borderWidth: 1,
+      titleFont: { family: 'IBM Plex Sans TC', weight: '600' },
+      bodyFont: { family: 'IBM Plex Mono' },
+      padding: 12,
+      displayColors: true
+    }
+  },
+  scales: {
+    x: {
+      ticks: { color: P.mute, font: { family: 'IBM Plex Mono', size: 10 } },
+      grid: { color: P.border, drawBorder: false }
+    },
+    y: {
+      ticks: { color: P.mute, font: { family: 'IBM Plex Mono', size: 10 } },
+      grid: { color: P.border, drawBorder: false }
+    }
+  }
+});
+
+function renderV1Charts() {
+  // Trend chart
+  new Chart(document.getElementById('chart-trend'), {
+    type: 'bar',
+    data: {
+      labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+      datasets: [{
+        label: 'USA Players (M)',
+        data: [3.5, 4.2, 4.8, 8.9, 13.6, 19.8],
+        backgroundColor: V1.accent,
+        borderRadius: 2,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      ...baseChartOpts(V1),
+      plugins: { ...baseChartOpts(V1).plugins, legend: { display: false } },
+      animation: { duration: 1800, easing: 'easeOutQuart', delay: (ctx) => ctx.dataIndex * 120 }
+    }
+  });
+
+  // Revenue doughnut
+  new Chart(document.getElementById('chart-revenue'), {
+    type: 'doughnut',
+    data: {
+      labels: ['場地租賃', '會員 + 課程', '賽事 + 品牌'],
+      datasets: [{
+        data: [55, 30, 15],
+        backgroundColor: [V1.accent, V1.accent2, V1.cool],
+        borderColor: V1.bg,
+        borderWidth: 3
+      }]
+    },
+    options: {
+      ...baseChartOpts(V1),
+      scales: {},
+      cutout: '60%',
+      animation: { duration: 1800, animateRotate: true, animateScale: true }
+    }
+  });
+
+  // CAPEX bar
+  new Chart(document.getElementById('chart-capex'), {
+    type: 'bar',
+    data: {
+      labels: ['地坪/PU', '照明/電力', '冷氣/隔熱', '球網/設備', '社交/品牌', '消防/雜支', '營運準備金'],
+      datasets: [{
+        label: '萬 NTD',
+        data: [55, 50, 60, 35, 40, 40, 30],
+        backgroundColor: [V1.accent, V1.accent, V1.accent, V1.accent2, V1.accent2, V1.accent2, V1.cool],
+        borderRadius: 2,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      ...baseChartOpts(V1),
+      indexAxis: 'y',
+      plugins: { ...baseChartOpts(V1).plugins, legend: { display: false } },
+      animation: { duration: 1600, easing: 'easeOutQuart', delay: (ctx) => ctx.dataIndex * 100 }
+    }
+  });
+
+  // ROI sensitivity line
+  new Chart(document.getElementById('chart-roi'), {
+    type: 'line',
+    data: {
+      labels: ['30%', '40%', '48%', '55%', '65%', '75%', '85%'],
+      datasets: [{
+        label: '月淨收益 (萬)',
+        data: [-6, -2, 0, 4, 9, 15, 22],
+        borderColor: V1.accent,
+        backgroundColor: 'rgba(212,255,61,0.1)',
+        borderWidth: 3,
+        tension: .35,
+        fill: true,
+        pointBackgroundColor: V1.accent,
+        pointBorderColor: V1.bg,
+        pointBorderWidth: 2,
+        pointRadius: 6,
+        pointHoverRadius: 9
+      }]
+    },
+    options: {
+      ...baseChartOpts(V1),
+      plugins: { ...baseChartOpts(V1).plugins, legend: { display: false } },
+      animation: { duration: 1800, easing: 'easeOutQuart' }
+    }
+  });
+
+  // Risk scatter
+  new Chart(document.getElementById('chart-risk'), {
+    type: 'scatter',
+    data: {
+      datasets: [
+        { label: '需求未驗證', data: [{x:80, y:90, r:18}], backgroundColor: V1.warn },
+        { label: '電費失控', data: [{x:75, y:75, r:15}], backgroundColor: V1.warn },
+        { label: '空場率', data: [{x:65, y:60, r:13}], backgroundColor: '#FFB347' },
+        { label: '副業管理', data: [{x:60, y:50, r:11}], backgroundColor: '#FFB347' },
+        { label: '裝修超支', data: [{x:55, y:40, r:10}], backgroundColor: '#FFB347' },
+        { label: '競爭進入', data: [{x:35, y:55, r:11}], backgroundColor: V1.cool },
+        { label: '法規消防', data: [{x:30, y:30, r:8}], backgroundColor: V1.accent2 },
+        { label: '夥伴失和', data: [{x:25, y:65, r:12}], backgroundColor: V1.cool }
+      ]
+    },
+    options: {
+      ...baseChartOpts(V1),
+      plugins: {
+        ...baseChartOpts(V1).plugins,
+        legend: {
+          position: 'right',
+          labels: { color: V1.text, font: { family: 'IBM Plex Mono', size: 11 }, padding: 12 }
+        }
+      },
+      scales: {
+        x: { ...baseChartOpts(V1).scales.x, min: 0, max: 100, title: { display: true, text: '機率 →', color: V1.mute, font: { family: 'IBM Plex Mono', size: 11 } } },
+        y: { ...baseChartOpts(V1).scales.y, min: 0, max: 100, title: { display: true, text: '影響 →', color: V1.mute, font: { family: 'IBM Plex Mono', size: 11 } } }
+      },
+      animation: { duration: 1500, easing: 'easeOutQuart', delay: (ctx) => ctx.datasetIndex * 100 }
+    }
+  });
+}
+
+/* =========================================================
+   CHART.JS — V2 (Build Strategy, Industrial palette)
+   ========================================================= */
+function renderV2Charts() {
+  // Cost breakdown — grouped bar
+  new Chart(document.getElementById('chart-cost'), {
+    type: 'bar',
+    data: {
+      labels: ['地坪', 'PU/底材', '畫線', 'LED', 'HVLS', '隔熱', '局部冷氣', '社交區', '品牌牆', '球網', '消防/電', '雜支'],
+      datasets: [
+        { label: '低估', data: [8, 12, 6, 12, 8, 10, 0, 6, 5, 6, 8, 5], backgroundColor: V2.accent, borderRadius: 2, borderSkipped: false },
+        { label: '高估', data: [15, 25, 12, 22, 15, 18, 15, 14, 12, 10, 18, 12], backgroundColor: V2.warn, borderRadius: 2, borderSkipped: false }
+      ]
+    },
+    options: {
+      ...baseChartOpts(V2),
+      animation: { duration: 1800, easing: 'easeOutQuart', delay: (ctx) => ctx.dataIndex * 80 }
+    }
+  });
+
+  // Electricity bar
+  new Chart(document.getElementById('chart-elec'), {
+    type: 'bar',
+    data: {
+      labels: ['全冷氣\n(錯誤)', '全冷氣\n+分時', 'HVLS+局部\n(建議)', '純HVLS\n(極端)'],
+      datasets: [{
+        label: '月電費 (萬)',
+        data: [7.5, 5.5, 3.0, 1.2],
+        backgroundColor: [V2.warn, V2.accent, V2.good, V2.cool],
+        borderRadius: 2,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      ...baseChartOpts(V2),
+      plugins: { ...baseChartOpts(V2).plugins, legend: { display: false } },
+      animation: { duration: 1800, easing: 'easeOutQuart', delay: (ctx) => ctx.dataIndex * 180 }
+    }
+  });
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+rebuildDots();
+</script>
+
+</body>
+</html>
